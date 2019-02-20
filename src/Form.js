@@ -14,6 +14,20 @@ class Form extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.selectedIndex !== undefined &&
+      prevProps.selectedIndex !== this.props.selectedIndex
+    ) {
+      this.setState({
+        value: this.props.rowData.name,
+        checkedGender: this.props.rowData.gender,
+        checkedPets: this.props.rowData.pet,
+        selectedCar: this.props.rowData.car
+      });
+    }
+  }
+
   handlePetsCheckbox = e => {
     const pet = e.target.name;
     const isChecked = e.target.checked;
@@ -89,6 +103,7 @@ class Form extends Component {
         </fieldset>
 
         <fieldset className="pet">
+          <h2>Which pet/pets do you prefer?</h2>
           {checkboxes.map(item => (
             <label key={item.key}>
               {item.label}
@@ -111,11 +126,11 @@ class Form extends Component {
             <option disabled value="">
               -- select an option --
             </option>
-            <option name="audi" value="Audi">
-              Audi
+            <option name="toyota" value="Toyota">
+              Toyota
             </option>
-            <option name="bmw" value="BMW">
-              BMW
+            <option name="honda" value="Honda">
+              Honda
             </option>
             <option name="mitsubishi" value="Mitsubishi">
               Mitsubishi
@@ -125,6 +140,10 @@ class Form extends Component {
 
         <button type="submit" onClick={this.handleSubmit}>
           Send
+        </button>
+
+        <button type="submit" onClick={this.props.handleOnSave}>
+          Save
         </button>
       </form>
     );
