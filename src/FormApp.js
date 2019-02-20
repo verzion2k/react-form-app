@@ -48,29 +48,16 @@ class FormApp extends Component {
       : this.state.formData[this.state.selectedIndex];
   };
 
-  handleOnSave = e => {
-    e.preventDefault();
+  handleOnSave = (i, data) => {
+    this.setState(prevState => {
+      const newFormData = [...prevState.formData];
+      newFormData[i] = data;
 
-    if (this.getSelectedData()) {
-      const rowData = this.state.formData[this.state.selectedIndex];
-      console.log(rowData.name);
-
-      this.handleFormData({
-        name: rowData.name,
-        gender: rowData.gender,
-        pet: rowData.pet,
-        car: rowData.car
-      });
-
-      this.setState({
-        value: "",
-        checkedGender: "",
-        checkedPets: {},
-        selectedCar: ""
-      });
-    } else {
-      console.log("Cant save till you edit a row");
-    }
+      return {
+        formData: newFormData,
+        selectedIndex: undefined
+      };
+    });
   };
 
   render() {
@@ -80,6 +67,7 @@ class FormApp extends Component {
           handleFormData={this.handleFormData}
           selectedIndex={this.state.selectedIndex}
           handleOnSave={this.handleOnSave}
+          formData={this.state.formData}
           rowData={this.getSelectedData()}
         />
         <Table

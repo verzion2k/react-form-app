@@ -14,6 +14,24 @@ class Form extends Component {
     };
   }
 
+  handleOnSave = e => {
+    e.preventDefault();
+
+    this.props.handleOnSave(this.props.selectedIndex, {
+      name: this.state.value,
+      gender: this.state.checkedGender,
+      pet: this.state.checkedPets,
+      car: this.state.selectedCar
+    });
+
+    this.setState({
+      value: "",
+      checkedGender: "",
+      checkedPets: {},
+      selectedCar: ""
+    });
+  };
+
   componentDidUpdate(prevProps) {
     if (
       this.props.selectedIndex !== undefined &&
@@ -138,13 +156,15 @@ class Form extends Component {
           </select>
         </fieldset>
 
-        <button type="submit" onClick={this.handleSubmit}>
-          Send
-        </button>
-
-        <button type="submit" onClick={this.props.handleOnSave}>
-          Save
-        </button>
+        {!this.props.rowData ? (
+          <button type="submit" onClick={this.handleSubmit}>
+            Send
+          </button>
+        ) : (
+          <button type="submit" onClick={this.handleOnSave}>
+            Save
+          </button>
+        )}
       </form>
     );
   }
