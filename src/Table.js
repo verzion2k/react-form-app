@@ -124,13 +124,15 @@ class Table extends Component {
 
           <div className="divTableRow">
             <div className="divTableCell lastCell">
-              <button
-                type="submit"
-                className="delete--checked"
-                onClick={this.deleteRowOnClick}
-              >
-                Delete checked items
-              </button>
+              {this.state.deleteCheck.length !== 0 && (
+                <button
+                  type="submit"
+                  className="delete--checked"
+                  onClick={this.deleteRowOnClick}
+                >
+                  Delete checked items
+                </button>
+              )}
             </div>
           </div>
         </div>

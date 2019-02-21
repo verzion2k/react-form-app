@@ -71,19 +71,23 @@ class Form extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.handleFormData({
-      name: this.state.value,
-      gender: this.state.checkedGender,
-      pet: this.state.checkedPets,
-      car: this.state.selectedCar
-    });
+    if (this.state.value !== "" && this.state.checkedGender !== "") {
+      this.props.handleFormData({
+        name: this.state.value,
+        gender: this.state.checkedGender,
+        pet: this.state.checkedPets,
+        car: this.state.selectedCar
+      });
 
-    this.setState({
-      value: "",
-      checkedGender: "",
-      checkedPets: {},
-      selectedCar: ""
-    });
+      this.setState({
+        value: "",
+        checkedGender: "",
+        checkedPets: {},
+        selectedCar: ""
+      });
+    } else {
+      alert("You have to fill both name and gender input!!");
+    }
   };
 
   render() {
